@@ -1,0 +1,122 @@
+<style>
+.overlay {
+    position:absolute;
+    z-index:0;
+    top:0;
+    left:0;
+}
+</style>
+
+
+
+<div id="box">
+    <img align="middle" width="800" height="600" id="image" style="border:25px solid yellow;"/>
+</div>
+
+<form>
+    <input type=submit value="New lizard wall">
+</form>
+
+<p id="lizardcount">Hello!</p>
+
+<script>
+    
+display = document.getElementById("image");
+    
+console.log(String(Math.floor(Math.random() * 2)));
+
+function returnLizards() {
+    wall={{wall|tojson}};
+    console.log(wall);
+    display.src=wall[0];
+    totallizards=wall[1].length;
+    document.getElementById("lizardcount").innerHTML = "remaining lizards:"+totallizards;
+}
+
+function findlizards(){
+    for (i = 0; i < wall[1].length; i++) {
+        if (wall[1][i][2]==false){
+            wall[1][i][2]=true;
+            const bluecirc = document.createElement('img');
+            bluecirc.setAttribute(
+                'src',
+                "{{url_for('static', filename='blue-circle.png')}}",
+            );
+            bluecirc.setAttribute('alt', 'nature');
+            bluecirc.setAttribute('height', 50);
+            bluecirc.setAttribute('width', 50);
+            bluecirc.classList.add("overlay");
+            bluecirc.style.left=wall[1][i][0];
+            bluecirc.style.top=wall[1][i][1];
+            const box = document.getElementById('box');
+            box.appendChild(bluecirc);
+        }
+    }
+    document.getElementById("image").style.border = "25px solid MediumSlateBlue";
+}
+
+
+
+returnLizards();
+</script>
+
+<button id="flotch" onclick="findlizards();">Find all remaining lizards</button>
+
+<script>
+    
+function circle(o){
+    for (i = 0; i < wall[1].length; i++) {
+        if(((o[0]-10)<wall[1][i][0]+25)&&((o[0]+10)>wall[1][i][0]+25)&&((o[1]-10)<wall[1][i][1]+25)&&((o[1]+10)>wall[1][i][1]+25)){
+            console.log('epic');
+            if (wall[1][i][2]==false){
+                wall[1][i][2]=true;
+                const redcirc = document.createElement('img');
+                redcirc.setAttribute(
+                    'src',
+                    "{{url_for('static', filename='red-circle.png')}}",
+                );
+                redcirc.setAttribute('alt', 'nature');
+                redcirc.setAttribute('height', 50);
+                redcirc.setAttribute('width', 50);
+                redcirc.classList.add("overlay");
+                redcirc.style.left=wall[1][i][0];
+                redcirc.style.top=wall[1][i][1];
+                const box = document.getElementById('box');
+                box.appendChild(redcirc);
+                totallizards=totallizards-1;
+                document.getElementById("lizardcount").innerHTML = "remaining lizards:"+totallizards;
+                if (totallizards==0){
+                    document.getElementById("image").style.border = "25px solid green";
+                }
+                console.log(totallizards);
+            }
+        }
+    }
+}
+    
+          function getMousePosition(canvas, event) {
+          //let rect = canvas.getBoundingClientRect();
+          let x = event.clientX+(document.documentElement.scrollLeft ? document.documentElement.scrollLeft : document.body.scrollLeft)// - rect.left;
+          let y = event.clientY+(document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop)// - rect.top;
+          var o=[x,y];
+          return(o);
+      }
+    
+    
+    //      function getMousePosition(event) {
+    //      let x = event.clientX;
+    //      let y = event.clientY;
+    //      var o=[x,y];
+    //      return(o);
+    //  }
+    
+    //waits for a click
+    //    let canvasElem = document.querySelector("box");
+        document.addEventListener("mousedown", function(e) {
+        var o=getMousePosition("box",e);
+        console.log(o[0]-25,o[1]-25);
+        circle(o);
+      });
+          
+
+</script>
