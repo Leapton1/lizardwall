@@ -22,4 +22,4 @@ def home():
     return render_template('LizardWall.html',wall=walls[randint(0,2)])
 
 
-app.run(host='0.0.0.0', port=8080)
+app.run(host='0.0.0.0', port=80)
