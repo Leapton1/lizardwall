@@ -40,7 +40,7 @@ function findlizards(){
             const bluecirc = document.createElement('img');
             bluecirc.setAttribute(
                 'src',
-                "{{url_for('static', filename='blue-circle.png')}}",
+                "{{url_for('static', filename='blue-circle.png')}}"
             );
             bluecirc.setAttribute('alt', 'nature');
             bluecirc.setAttribute('height', 50);
@@ -96,8 +96,8 @@ function circle(o){
     
           function getMousePosition(canvas, event) {
           //let rect = canvas.getBoundingClientRect();
-          let x = event.clientX+(document.documentElement.scrollLeft ? document.documentElement.scrollLeft : document.body.scrollLeft)// - rect.left;
-          let y = event.clientY+(document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop)// - rect.top;
+          let x = event.clientX+(document.documentElement.scrollLeft ? document.documentElement.scrollLeft : document.body.scrollLeft);// - rect.left;
+          let y = event.clientY+(document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop);// - rect.top;
           var o=[x,y];
           return(o);
       }
